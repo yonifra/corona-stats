@@ -1,20 +1,42 @@
+import '../style/dropdown.css'
+
 import {Dropdown} from 'react-bootstrap'
 import React from 'react';
-import apiConstants from '../constants/api'
+import apiConstants from '../constants/general'
+
 class CountriesDropDown extends React.Component {
-    getCountries = () => {
-        return ['Italy', 'China', 'Israel'];
+    getStatsByCountry = () => {
+        console.log('In getStatsByCountry() ', this.state.currentCountry)
+        if (!this.state.currentCountry) return;
+
+        const countryToGet = this.state.currentCountry.toLowerCase()
+
+        fetch(apiConstants.apiEndpoint)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              lastFetched: Date.now(),
+              currentCountryStats: result.filter(c => c.country === countryToGet)[0]
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: false,
+              error
+            });
+          }
+        )
     }
 
     getByCountry = countryCode => {
         return countryCode;
     }
 
-    changeCountry = (event) => {
-        const country = event.target.value
-        console.log('Got country code: ', country);
-        if (this.state.currentCountry !== country) {
-            this.setState({currentCountry: country});
+    changeCountry = country => {
+        if (country && this.state.currentCountry !== country) {
+            this.setState({ currentCountry: country });
+            this.getStatsByCountry()
         }
     }
 
@@ -38,9 +60,6 @@ class CountriesDropDown extends React.Component {
               items: result.map(c => c.country)
             });
           },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
           (error) => {
             this.setState({
               isLoaded: true,
@@ -58,15 +77,16 @@ class CountriesDropDown extends React.Component {
         return <div>Loading...</div>;
       } else {
         return (
-            <Dropdown>
+            <Dropdown style={{ maxHeight: "28px" }}>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {!this.state.currentCountry ? 'Choose a country...' : this.state.currentCountry}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                     {items.map(item => (
-                        <Dropdown.Item key={item} onChange={this.changeCountry}>{item}</Dropdown.Item>
-                        // <a className="dropdown-item" href="#" onSelect={this.changeCountry}>{item}</a>
+                        <Dropdown.Item key={item} onClick={() => this.changeCountry(item)}>
+                            {item}
+                        </Dropdown.Item>
                     ))}
                 </Dropdown.Menu>
             </Dropdown>
