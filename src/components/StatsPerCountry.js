@@ -30,6 +30,7 @@ export default class StatsPerCountry extends Component {
                     <ListGroup.Item>Critical condition: {stats.critical}</ListGroup.Item>
                     <ListGroup.Item>Cases per million: {stats.casesPerOneMillion}</ListGroup.Item>
                     <ListGroup.Item>Deaths per million: {stats.deathsPerOneMillion}</ListGroup.Item>
+                    <ListGroup.Item>Death ratio per case: {(stats.deaths / stats.cases).toFixed(3)}</ListGroup.Item>
                 </ListGroup>
             </Card>)
         }
