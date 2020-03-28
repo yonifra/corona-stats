@@ -2,38 +2,32 @@ import '../style/dropdown.css'
 
 import {Dropdown} from 'react-bootstrap'
 import React from 'react';
+import StatsPerCountry from './StatsPerCountry'
 import apiConstants from '../constants/general'
 
 class CountriesDropDown extends React.Component {
-    getStatsByCountry = () => {
-        console.log('In getStatsByCountry() ', this.state.currentCountry)
+    getStatsByCountry() {
         if (!this.state.currentCountry) return;
-
-        const countryToGet = this.state.currentCountry.toLowerCase()
 
         fetch(apiConstants.apiEndpoint)
         .then(res => res.json())
         .then(
-          (result) => {
+            (result) => {
             this.setState({
-              lastFetched: Date.now(),
-              currentCountryStats: result.filter(c => c.country === countryToGet)[0]
+                lastFetched: Date.now(),
+                currentCountryStats: result.filter(c => c.country === this.state.currentCountry)[0]
             });
-          },
+        },
           (error) => {
-            this.setState({
-              isLoaded: false,
-              error
-            });
-          }
+              this.setState({
+                  isLoaded: false,
+                  error
+                });
+            }
         )
     }
 
-    getByCountry = countryCode => {
-        return countryCode;
-    }
-
-    changeCountry = country => {
+    changeCountry(country) {
         if (country && this.state.currentCountry !== country) {
             this.setState({ currentCountry: country });
             this.getStatsByCountry()
@@ -76,20 +70,25 @@ class CountriesDropDown extends React.Component {
       } else if (!isLoaded) {
         return <div>Loading...</div>;
       } else {
-        return (
-            <Dropdown style={{ maxHeight: "28px" }}>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {!this.state.currentCountry ? 'Choose a country...' : this.state.currentCountry}
-                </Dropdown.Toggle>
+          return (
+            <div>
+                <Dropdown style={{ maxHeight: "28px" }}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        {!this.state.currentCountry ? 'Choose a country...' : this.state.currentCountry}
+                    </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    {items.map(item => (
-                        <Dropdown.Item key={item} onClick={() => this.changeCountry(item)}>
-                            {item}
-                        </Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
-            </Dropdown>
+                    <Dropdown.Menu>
+                        {items.map(item => (
+                            <Dropdown.Item key={item} onClick={() => this.changeCountry(item)}>
+                                {item}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Menu>
+                </Dropdown>
+                  <br />
+                  <br/>
+                <StatsPerCountry stats={this.state.currentCountryStats} />
+            </div>
         );
       }
     }
