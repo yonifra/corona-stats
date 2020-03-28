@@ -11,14 +11,7 @@ function App() {
         <p>
           Corona Stats
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Please choose a country for stats:</p>
       </header>
     </div>
   );
