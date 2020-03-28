@@ -3,7 +3,7 @@ import React from 'react';
 import apiConstants from '../constants/api'
 class CountriesDropDown extends React.Component {
     getCountries = () => {
-        return ['Italy', 'China', 'Israel']
+        return ['Italy', 'China', 'Israel'];
     }
 
     getByCountry = countryCode => {
