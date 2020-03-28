@@ -1,5 +1,7 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import CountriesDropDown from './components/CountriesDropDown'
 import React from 'react';
 import logo from './resources/logo.png';
 
@@ -8,10 +10,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Corona Stats
-        </p>
-        <p>Please choose a country for stats:</p>
+        <p>Please choose a country</p>
+        <CountriesDropDown/>
       </header>
     </div>
   );
