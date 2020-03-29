@@ -85,7 +85,6 @@ class CountriesDropDown extends React.Component {
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-                  <br />
                   <br/>
                 <StatsPerCountry stats={this.state.currentCountryStats} />
             </div>
