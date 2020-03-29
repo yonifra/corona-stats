@@ -21,7 +21,7 @@ export default class StatsPerCountry extends Component {
         if (stats) {
             const flagUrl = getFlag(stats.country)
             return (<Card style={{ width: '38rem' }}>
-                <Card.Header><img src={flagUrl} /> {stats.country}</Card.Header>
+                <Card.Header><img src={flagUrl ? flagUrl : null} /> {stats.country}</Card.Header>
                 <ListGroup variant="flush">
                     <ListGroup.Item>Total cases: {stats.cases}</ListGroup.Item>
                     <ListGroup.Item>Total deaths: {stats.deaths}</ListGroup.Item>

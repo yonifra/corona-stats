@@ -250,14 +250,14 @@ function getCountryCodeByName (countryName) {
     if (isoCountries.hasOwnProperty(countryName)) {
         return isoCountries[countryName];
     } else {
-        return countryName;
+        return undefined;
     }
 }
 
 function getFlag(countryName) {
     const code = getCountryCodeByName(countryName)
     const style = 'flat' // can be also 'shiny'
-    return`https://www.countryflags.io/${code}/${style}/64.png`
+    return code ? `https://www.countryflags.io/${code}/${style}/64.png` : undefined
 }
 
 export default getFlag
