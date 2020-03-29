@@ -244,7 +244,7 @@ var isoCountries = {
     'Yemen':'YE',
     'Zambia':'ZM',
     'Zimbabwe':'ZW'
-}; // TODO: Switch between code and name
+};
 
 function getCountryCodeByName (countryName) {
     if (isoCountries.hasOwnProperty(countryName)) {
