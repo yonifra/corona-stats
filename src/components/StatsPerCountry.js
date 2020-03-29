@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
+import getFlag from '../utils/countryCodes'
 
 export default class StatsPerCountry extends Component {
     constructor(props) {
@@ -18,8 +19,9 @@ export default class StatsPerCountry extends Component {
         const stats = this.props.stats;
 
         if (stats) {
+            const flagUrl = getFlag(stats.country)
             return (<Card style={{ width: '38rem' }}>
-                <Card.Header>Stats for {stats.country}</Card.Header>
+                <Card.Header><img src={flagUrl} /> {stats.country}</Card.Header>
                 <ListGroup variant="flush">
                     <ListGroup.Item>Total cases: {stats.cases}</ListGroup.Item>
                     <ListGroup.Item>Total deaths: {stats.deaths}</ListGroup.Item>
