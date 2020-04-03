@@ -6,16 +6,14 @@ import StatsPerCountry from './StatsPerCountry'
 import apiConstants from '../constants/general'
 
 class CountriesDropDown extends React.Component {
-    getStatsByCountry() {
-        if (!this.state.currentCountry) return;
-
+  getStatsByCountry(country) {
         fetch(apiConstants.apiEndpoint)
         .then(res => res.json())
         .then(
             (result) => {
             this.setState({
                 lastFetched: Date.now(),
-                currentCountryStats: result.filter(c => c.country === this.state.currentCountry)[0]
+                currentCountryStats: result.filter(c => c.country === country)[0]
             });
         },
           (error) => {
@@ -28,10 +26,10 @@ class CountriesDropDown extends React.Component {
     }
 
     changeCountry(country) {
-        if (country && this.state.currentCountry !== country) {
-            this.setState({ currentCountry: country });
-            this.getStatsByCountry()
-        }
+      if (!this.state.currentCountry || country && this.state.currentCountry !== country) {
+        this.setState({ currentCountry: country });
+        this.getStatsByCountry(country)
+      }
     }
 
     constructor(props) {
