@@ -39,7 +39,7 @@ class CountriesDropDown extends React.Component {
       this.state = {
         error: null,
         isLoaded: false,
-        items: [],
+        countries: [],
         currentCountry: null
       };
     }
@@ -51,7 +51,7 @@ class CountriesDropDown extends React.Component {
           (result) => {
             this.setState({
               isLoaded: true,
-              items: result.map(c => c.country).sort()
+              countries: result.map(c => c.country).sort()
             });
           },
           (error) => {
@@ -64,7 +64,7 @@ class CountriesDropDown extends React.Component {
     }
 
     render() {
-      const { error, isLoaded, items } = this.state;
+      const { error, isLoaded, countries } = this.state;
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
@@ -78,9 +78,9 @@ class CountriesDropDown extends React.Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        {items.map(item => (
-                            <Dropdown.Item key={item} onClick={() => this.changeCountry(item)}>
-                                {item}
+                        {countries.map(country => (
+                            <Dropdown.Item key={country} onClick={() => this.changeCountry(country)}>
+                                {country}
                             </Dropdown.Item>
                         ))}
                     </Dropdown.Menu>
