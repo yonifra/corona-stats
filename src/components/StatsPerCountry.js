@@ -10,11 +10,6 @@ export default class StatsPerCountry extends Component {
         super(props);
     }
 
-    // componentDidUpdate() {
-    //     console.log('stats', this.props.stats)
-
-    // }
-    // const [show, setShow] = useState(true);
     render() {
         const stats = this.props.stats;
 

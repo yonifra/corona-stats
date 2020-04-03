@@ -51,7 +51,7 @@ class CountriesDropDown extends React.Component {
           (result) => {
             this.setState({
               isLoaded: true,
-              items: result.map(c => c.country)
+              items: result.map(c => c.country).sort()
             });
           },
           (error) => {
