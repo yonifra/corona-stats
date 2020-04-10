@@ -1,9 +1,9 @@
-import '../style/dropdown.css'
+import '../style/dropdown.css';
 
-import {Dropdown} from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap';
 import React from 'react';
-import StatsPerCountry from './StatsPerCountry'
-import apiConstants from '../constants/general'
+import StatsPerCountry from './StatsPerCountry';
+import apiConstants from '../constants/general';
 
 class CountriesDropDown extends React.Component {
   getStatsByCountry(country) {

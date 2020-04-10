@@ -1,7 +1,7 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
-import CountriesDropDown from './components/CountriesDropDown'
+import CountriesDropDown from './components/CountriesDropDown';
 import React from 'react';
 import logo from './resources/logo.png';
 
