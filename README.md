@@ -1,4 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b9b6e953-19ad-420a-bf8c-f8da0318b456/deploy-status)](https://app.netlify.com/sites/boring-franklin-47123d/deploys)
+![GitHub last commit](https://img.shields.io/github/last-commit/yonifra/corona-stats)
 
 # Coronavirus Stats 🦠
 
