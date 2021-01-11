@@ -6,23 +6,34 @@ import StatsPerCountry from './StatsPerCountry';
 import apiConstants from '../constants/general';
 
 class CountriesDropDown extends React.Component {
-  getStatsByCountry(country) {
-        fetch(apiConstants.apiEndpoint)
-        .then(res => res.json())
-        .then(
-            (result) => {
-            this.setState({
-                lastFetched: Date.now(),
-                currentCountryStats: result.filter(c => c.country === country)[0]
-            });
-        },
-          (error) => {
-              this.setState({
-                  isLoaded: false,
-                  error
-                });
-            }
-        )
+    getStatsByCountry() {
+        if (!this.state.currentCountry) return;
+
+        console.log('time passed', Date.now() - this.state.lastFetched)
+        if (Date.now() - this.state.lastFetched > 10000) {
+          fetch(apiConstants.apiEndpoint)
+          .then(res => res.json())
+          .then(
+              (result) => {
+                  this.setState({
+                      lastFetched: Date.now(),
+                      allCountriesStats: result,
+                      currentCountryStats: result.filter(c => c.country === this.state.currentCountry)[0]
+                  });
+          },
+            (error) => {
+                this.setState({
+                    isLoaded: false,
+                    error
+                  });
+              }
+          )
+        }
+        else {
+          this.setState({
+            currentCountryStats: this.state.allCountriesStats.filter(c => c.country === this.state.currentCountry)[0]
+          })
+        }
     }
 
     changeCountry(country) {
@@ -37,8 +48,10 @@ class CountriesDropDown extends React.Component {
       this.state = {
         error: null,
         isLoaded: false,
-        countries: [],
-        currentCountry: null
+        items: [],
+        currentCountry: null,
+        lastFetched: null,
+        allCountriesStats: null,
       };
     }
 
@@ -48,6 +61,8 @@ class CountriesDropDown extends React.Component {
         .then(
           (result) => {
             this.setState({
+              lastFetched: Date.now(),
+              allCountriesStats: result,
               isLoaded: true,
               countries: result.map(c => c.country).sort()
             });
@@ -64,7 +79,7 @@ class CountriesDropDown extends React.Component {
     render() {
       const { error, isLoaded, countries } = this.state;
       if (error) {
-        return <div>Error: {error.message}</div>;
+        return (<div>Error: {error.message}</div>)
       } else if (!isLoaded) {
         return <div>Loading...</div>;
       } else {
@@ -83,7 +98,7 @@ class CountriesDropDown extends React.Component {
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-                  <br/>
+                <br/>
                 <StatsPerCountry stats={this.state.currentCountryStats} />
             </div>
         );
