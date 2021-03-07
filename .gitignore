@@ -1,11 +1,6 @@
 .DS_STORE
-node_modules
-scripts/flow/*/.flowconfig
-.flowconfig
-*~
-*.pyc
-.grunt
-_SpecRunner.html
+*node_modules/*
+node_modules/
 __benchmarks__
 build/
 remote-repo/
@@ -13,7 +8,7 @@ coverage/
 .module-cache
 fixtures/dom/public/react-dom.js
 fixtures/dom/public/react.js
-test/the-files-to-test.generated.js
+test/
 *.log*
 chrome-user-data
 *.sublime-project
@@ -22,4 +17,4 @@ chrome-user-data
 *.iml
 .vscode
 *.swp
-*.swo
+*.swonode_modules/
